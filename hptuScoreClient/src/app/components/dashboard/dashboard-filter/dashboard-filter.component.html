@@ -1,0 +1,49 @@
+  <div class="filter-assessment-content">
+    <div mat-dialog-title class="form-header">
+      <h2>Assessment Filter</h2>
+    </div>
+    <div>
+    <form [formGroup]="filterFormGroup" (ngSubmit)="onSubmitEditPillar()">
+    <div mat-dialog-content class="mat-typography">
+      
+      <div class="form-row">  
+        <mat-form-field appearance="outline">
+            <mat-label>Assessment Year</mat-label>
+            <mat-select formControlName="assessmentYear" required>
+                @for (year of assessmentYearsList; track year) {
+                  <mat-option [value]="year.value">{{year.display}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">  
+        <mat-form-field appearance="outline">
+            <mat-label>Year Quarter</mat-label>
+      <mat-select formControlName="assessmentQuarter">
+        @for (quarter of quartersList; track quarter) {
+          <mat-option [value]="quarter.value">{{quarter.display}}</mat-option>
+        }
+    </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Select County</mat-label>
+            <mat-select formControlName="countyCode">
+              @for (county of counties; track county) {
+                <mat-option [value]="county.countyCode">{{county.name}}</mat-option>
+              }
+            </mat-select>
+        </mat-form-field>
+      </div>
+  
+    </div>
+    <div mat-dialog-actions align="end" class="form-btns">
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button cdkFocusInitial type="submit">Submit</button>
+    </div>
+  </form>
+  </div>
+  </div>

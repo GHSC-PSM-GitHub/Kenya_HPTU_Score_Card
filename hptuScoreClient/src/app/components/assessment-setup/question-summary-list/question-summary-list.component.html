@@ -1,0 +1,109 @@
+<mat-card>
+  <mat-card-title>Question Summaries</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="questionSummaryList" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <!-- Summary Column -->
+      <ng-container matColumnDef="summary">
+        <th mat-header-cell *matHeaderCellDef> Summary </th>
+        <td mat-cell *matCellDef="let element"> {{element.summary}} </td>
+      </ng-container>
+      <!-- Minimum Previous Question Score Column -->
+      <ng-container matColumnDef="minimumPreviousQuestionScore">
+        <th mat-header-cell *matHeaderCellDef> Min Previous Score </th>
+        <td mat-cell *matCellDef="let element"> {{element.minimumPreviousQuestionScore}} </td>
+      </ng-container>
+      <!-- Question Order Number Column -->
+      <ng-container matColumnDef="questionOrderNumber">
+        <th mat-header-cell *matHeaderCellDef> Order Number </th>
+        <td mat-cell *matCellDef="let element"> {{element.questionOrderNumber}} </td>
+      </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="toggleExpanded(questionSummaryList.indexOf(element))">
+            {{expandedElement.get(questionSummaryList.indexOf(element)) ? 'Collapse' : 'Expand'}}
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-accordion *ngFor="let questionSummary of questionSummaryList; let i = index" multi>
+      <mat-expansion-panel [expanded]="expandedElement.get(i)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Questions
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <table mat-table [dataSource]="questionSummary.questions" class="mat-elevation-z8">
+          <!-- Question Columns -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="hptuQuestion">
+            <th mat-header-cell *matHeaderCellDef> Question </th>
+            <td mat-cell *matCellDef="let element"> {{element.hptuQuestion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef> Score </th>
+            <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+          </ng-container>
+          <ng-container matColumnDef="questionOrder">
+            <th mat-header-cell *matHeaderCellDef> Order </th>
+            <td mat-cell *matCellDef="let element"> {{element.questionOrder}} </td>
+          </ng-container>
+          <ng-container matColumnDef="summaryId">
+            <th mat-header-cell *matHeaderCellDef> Summary ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.summaryId}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['id', 'hptuQuestion', 'score', 'questionOrder', 'summaryId']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['id', 'hptuQuestion', 'score', 'questionOrder', 'summaryId'];"></tr>
+        </table>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="expandedElement.get(i)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Score Summaries
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <table mat-table [dataSource]="questionSummary.scoreSummaries" class="mat-elevation-z8">
+          <!-- Score Summary Columns -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="from">
+            <th mat-header-cell *matHeaderCellDef> From </th>
+            <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+          </ng-container>
+          <ng-container matColumnDef="to">
+            <th mat-header-cell *matHeaderCellDef> To </th>
+            <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+          </ng-container>
+          <ng-container matColumnDef="summaryColor">
+            <th mat-header-cell *matHeaderCellDef> Color </th>
+            <td mat-cell *matCellDef="let element"> {{element.summaryColor}} </td>
+          </ng-container>
+          <ng-container matColumnDef="questionSummaryId">
+            <th mat-header-cell *matHeaderCellDef> Summary ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.questionSummaryId}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['id', 'from', 'to', 'summaryColor', 'questionSummaryId']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['id', 'from', 'to', 'summaryColor', 'questionSummaryId'];"></tr>
+        </table>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>
